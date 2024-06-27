@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta name="description" content="Get a temporary phone number to receive SMS online for free within {{ country }}. Explore available numbers and select the best one for your needs.">
+</head>
+
+<h2 class="text-center">Get an SMS Online within {{ country }}</h2>
+<p class="text-center">
+    Discover temporary phone numbers available for free SMS reception in {{ country }}. These numbers are sorted by acquisition date and include the number of received messages since posting. Choose the best fit for your usage scenario, knowing these numbers are temporary and will be removed in about a month.
+</p>
+<h3 class="text-center">Available Numbers for {{ country }}</h3>
+<div class="container">
+    <div class="row">
+    {% for number in numbers %}
+    <div class="col-md-4 col-sm-12 mb-4">
+        <div class="card text-center">
+            <div class="card-body d-flex flex-column align-items-center">
+                <img src="{{ url_for('static', filename='countries/' + country|lower|replace(' ', '-') + '.png') }}" alt="{{ country }} flag" class="mb-2" width="64" height="48">
+                <h5 class="card-title">{{ number['E.164'] }}</h5>
+                <p class="card-text">Added: {{ number['time'] }}</p>
+                <a href="{{ url_for('messages', number=number['E.164']) }}" class="btn btn-primary mt-auto align-self-center custom-btn">Open</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

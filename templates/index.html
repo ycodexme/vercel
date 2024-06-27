@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Receive SMS Online - SmsToYou{% endblock %}
+{% block meta_description %}Get free temporary phone numbers for receiving SMS online from 48 different locations. Protect your privacy with SmsToYou.{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-md-left text-center">
+    <h1 class="display-4"><strong>Receive SMS Online</strong></h1>
+    <p>SmsToYou is a completely free online platform that lets you receive SMS messages online, without having to include your own cell phone number. What's more, these temporary numbers are all based on real SIM numbers, so you can view all the information they receive online.</p>
+    <p class="lead">Here you can find temporary phone numbers from various countries.</p>
+</div>
+<div class="row">
+    {% for country in countries %}
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+        <div class="card text-center">
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <img src="{{ url_for('static', filename='countries/' + country|lower|replace(' ', '-') + '.png') }}" alt="Flag of {{ country }}" class="mr-2" width="32" height="24">
+                <h5 class="card-title mb-0">{{ country }}</h5>
+            </div>
+            <div class="card-body d-flex justify-content-center">
+                <a href="{{ url_for('numbers', country=country) }}" class="btn btn-primary mt-2">Open</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Tutorial Section -->
+<div class="container mt-5">
+    <h2 class="text-center">How to Get Free SMS Reception Online</h2>
+    <p class="text-center">Get a temporary phone number to receive SMS online for free. Messages are public and disappear after 24 hours. Great for verifying accounts without giving out your real number.</p>
+    
+    <h3 class="mt-4">Bulleted List:</h3>
+    <ul>
+        <li>Free temporary phone numbers for receiving SMS online.</li>
+        <li>Messages are public and deleted daily.</li>
+        <li>No need to refresh, messages arrive instantly.</li>
+        <li>No personal information stored.</li>
+        <li>Supported by ads to keep the service free.</li>
+    </ul>
+
+    <h3 class="mt-4">Step-by-Step Guide:</h3>
+    <ol>
+        <li>Visit smstoyou.com</li>
+        <li>Copy the temporary phone number provided.</li>
+        <li>Paste the number into the platform or app where you need to receive SMS (e.g., Telegram, Gmail, Whatsapp).</li>
+        <li>You'll receive the SMS message on the smstoyou.com website.</li>
+    </ol>
+
+    <h3 class="mt-4">Formal Announcement:</h3>
+    <p>Smstoyou.com offers a free service to receive SMS messages online using temporary phone numbers. This protects your privacy by preventing companies from obtaining your real phone number. Messages are publicly displayed and automatically deleted after 24 hours. While ad-supported, smstoyou.com remains free to use and promotes online identity protection.</p>
+</div>
+{% endblock %}
+

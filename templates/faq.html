@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center mb-4">FAQ - Frequently Asked Questions</h2>
+
+<div class="input-group mb-4">
+    <input type="text" class="form-control" id="faqSearch" placeholder="Search FAQs">
+    <div class="input-group-append">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+    </div>
+</div>
+
+<div class="accordion" id="faqAccordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    How does this service work?
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+            <div class="card-body">
+                This service provides temporary phone numbers that can be used to receive SMS online.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Is it free to use?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+            <div class="card-body">
+                Yes, our service is completely free to use.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    How long are the numbers available?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+            <div class="card-body">
+                Numbers are available for a period of 30 days.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Can I use the numbers for verification?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+            <div class="card-body">
+                Yes, you can use the numbers for verification purposes.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFive">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Are the numbers reusable?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+            <div class="card-body">
+                No, each number is temporary and cannot be reused.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingSix">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    How often are new numbers added?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+            <div class="card-body">
+                New numbers are added daily.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add more questions as needed -->
+</div>
+
+<script>
+    document.getElementById('faqSearch').addEventListener('keyup', function() {
+        var searchTerm = this.value.toLowerCase();
+        var questions = document.querySelectorAll('#faqAccordion .card');
+        questions.forEach(function(question) {
+            var questionText = question.querySelector('.card-header button').textContent.toLowerCase();
+            if (questionText.includes(searchTerm)) {
+                question.style.display = '';
+            } else {
+                question.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+{% endblock %}

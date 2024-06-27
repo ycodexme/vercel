@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta name="description" content="Discover how to get free temporary phone numbers online with SmsToYou. Choose from 48 locations and select a temporary phone number to receive SMS messages online.">
+</head>
+
+<div class="container text-center my-4">
+    <p class="lead">Online, you can get free temporary phone numbers.</p>
+    <p>For 48 locations, SmsToYou now offers free virtual temporary numbers.</p>
+    <p>Select your country and then pick a temporary phone number to receive SMS messages online:</p>
+    <h2 class="text-center">Available Countries</h2>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for country in countries %}
+        <div class="col-12 col-md-3 mb-4">
+            <a href="{{ url_for('numbers', country=country.Country_Name) }}" class="list-group-item list-group-item-action d-flex flex-column align-items-center text-center p-2 p-md-3">
+                <img src="{{ url_for('static', filename='countries/' + country.Country_Name|lower|replace(' ', '-') + '.png') }}" alt="{{ country.Country_Name }} flag" class="mb-2" width="64" height="48">
+                {{ country.Country_Name }}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

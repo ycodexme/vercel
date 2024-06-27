@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<div class="container mt-14 px-md-12 message-container">
+  <div class="jumbotron">
+    <div class="d-flex align-items-center">
+      <img src="{{ url_for('static', filename='countries/' + country|lower|replace(' ', '-') + '.png') }}" alt="{{ country }} flag" class="mr-3" width="50" height="38">
+      <h1 class="display-4">{{ number }}</h1>
+      <button type="button" class="btn btn-light ml-3" onclick="copyNumberToClipboard('{{ number }}')" title="Copy Number">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+    <ul>
+      <li><b>1. To view the updated message, reload this page.</b></li>
+      <li><b>2. Click on the number to view the messages received.</b></li>
+      <li><b>3. There will be more messages in 20 seconds or so.</b></li>
+    </ul>
+  </div>
+
+  <!-- Refresh Button -->
+  <div class="text-center mb-4">
+    <a href="{{ url_for('messages', number=number) }}" class="btn btn-primary">Refresh</a>
+  </div>
+
+  <h2 class="text-center">Messages for {{ number }}</h2>
+
+  <!-- Table Structure -->
+  <div class="table-responsive d-none d-md-block">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">From</th>
+          <th scope="col">Text</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for message in messages %}
+        <tr>
+          <td>{{ message.FromNumber }}</td>
+          <td>{{ message.Messagebody }}</td>
+          <td>{{ message.message_time }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Card Structure for Mobile -->
+  <div class="d-block d-md-none">
+    {% for message in messages %}
+    <div class="card mb-2">
+      <div class="card-body">
+        <p><strong>From:</strong> {{ message.FromNumber }}</p>
+        <p>{{ message.Messagebody }}</p>
+        <p><small>{{ message.message_time }}</small></p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-4">
+    <a href="{{ url_for('messages', number=number, page=page-1) }}" class="btn btn-secondary {% if page == 1 %}disabled{% endif %}">Previous</a>
+    <a href="{{ url_for('messages', number=number, page=page+1) }}" class="btn btn-secondary {% if page * per_page >= total_messages %}disabled{% endif %}">Next</a>
+  </div>
+
+  <!-- Random Numbers Button -->
+  <div class="text-center mt-4">
+    {% if random_number %}
+    <a href="{{ url_for('messages', number=random_number) }}" class="btn btn-secondary">Random Numbers</a>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  // Initialize tooltips for copy button
+  $(document).ready(function() {
+    $('.copy-btn').tooltip();
+
+    // Clipboard functionality
+    var clipboard = new ClipboardJS('.copy-btn');
+    
+    clipboard.on('success', function(e) {
+      e.clearSelection();
+      // Show a tooltip to indicate successful copy
+      $(e.trigger).tooltip('dispose').attr('data-original-title', 'Copied!').tooltip('show');
+      setTimeout(function() {
+        $(e.trigger).tooltip('hide').attr('data-original-title', 'Copy Number').tooltip('dispose');
+      }, 1000); // Hide the tooltip after 1 second
+    });
+  });
+</script>
+
+<script>
+function copyNumberToClipboard(number) {
+  const el = document.createElement('textarea');
+  el.value = number;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  // Utiliser SweetAlert pour une alerte plus esthétique
+  Swal.fire({
+    title: 'Copié!',
+    text: 'Numéro copié: ' + number,
+    icon: 'success',
+    confirmButtonText: 'Fermer'
+  });
+}
+</script>
+
+{% endblock %}
